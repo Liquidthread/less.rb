@@ -59,7 +59,7 @@ module Less
         def lock(&block)
           do_lock(&block)
         rescue V8::JSError => e
-          if e.in_javascript?
+          if !e.value.kind_of?(Exception)?
             js_value = e.value.respond_to?(:'[]')
             name = js_value && e.value["name"]
             constructor = js_value && e.value['constructor']
